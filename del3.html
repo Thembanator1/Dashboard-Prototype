@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line Chart test</title>
+    <link rel="stylesheet" href="del.css">
+    <style>
+        body {
+            background-color: #f5f5f5b6;
+        }
+
+        .top-nav,
+        .header {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+        }
+
+        .header {
+            background-color: rgb(199, 51, 51);
+            justify-content: center;
+        }
+
+        .logo {
+            max-width: 375px;
+            height: 100px;
+            border-radius: 20px;
+        }
+
+        .nav-links {
+            margin-left: auto;
+            margin-right: 1%;
+        }
+
+        .nav-links a {
+            color: #4400ff;
+        }
+
+        .menu {
+            display: flex;
+            gap: 1em;
+            font-size: 18px;
+        }
+
+        .menu li:hover {
+            background-color: #4c9e9e;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        .menu li {
+            padding: 3px 10px;
+        }
+
+        .container {
+            display: flex;
+            margin-left: 200px;
+        }
+
+        .best-sellers {
+            width: 450px;
+            margin-left: auto; /* Pushes best-sellers to the right */
+        }
+
+        .card {
+            width: 809px;
+            height: 400px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: row;
+        }
+
+        .line-chart {
+            flex: 1;
+        }
+
+        .pie-chart {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .employee-card {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #e9e9e9;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sales-bubble {
+            background-color: #c3e6cb;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        #map {
+            width: 400px;
+            height: 400px;
+            margin: 20px auto;
+        }
+    </style>
+    <style>
+        /* Sidebar styles */
+        .sidebar {
+            background-color: #4c9e9e;
+            width: 200px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+        }
+
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .view-more-button {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            height: 35px;
+            background-color: #fff;
+            border-radius: 20px;
+            border-color: #383838;
+        }
+
+        .employee-details {
+            display: flex;
+            align-items: center;
+        }
+
+        .employee-image {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .employee-info {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="top-nav">
+        <img class="logo" src="./logo.png" style="margin-left: 200px;" alt="Logo">
+
+        <h2 style="margin-left:390px;">Dashboard</h2>
+        <!-- <ul class="nav-links">
+            <div class="menu">
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="Supplier_sales.html">Sales Analysis</a></li>
+            </div>
+        </ul> -->
+    </div>
+
+    <div class="sidebar">
+        <img width="18" height="16" style="float: right;" src="https://img.icons8.com/ios-filled/16/back.png"
+            alt="back" />
+        <ul>
+            <li>
+                <img src="home.svg" alt="Home Icon">
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <img width="14" height="14" src="https://img.icons8.com/sf-regular-filled/14/crowd.png" alt="crowd" />
+                <a href="#">People</a>
+            </li>
+            <li>
+                <img width="16" height="16"
+                    src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/64/external-account-taxes-flatart-icons-solid-flatarticons.png"
+                    alt="external-account-taxes-flatart-icons-solid-flatarticons" />
+                <a href="supplier_homepage.html">Bussiness Data</a>
+            </li>
+            <li>
+                <img width="17" height="17" src="https://img.icons8.com/ios-filled/50/statistics-report.png"
+                    alt="statistics-report" />
+                <a href="report.html">Financial Report</a>
+            </li>
+
+            <li>
+                <img width="14" height="14" src="https://img.icons8.com/ios-filled/14/settings.png" alt="settings" />
+                <a href="#">Settings</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="line-chart">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="pie-chart">
+                <canvas id="pieChart"></canvas>
+            </div>
+        </div>
+        <div class="best-sellers">
+            <h3>Weekly Best Employees</h3>
+            <div class="employee-card">
+                <div class="employee-details">
+                    <img class="employee-image" src="./jay_cutler.png" alt="Jay Cutler Image">
+                    <div class="employee-info">
+                        <p><strong>Jay Cutler</strong></p>
+                        <p>9 July 2023</p>
+                    </div>
+                </div>
+                <div class="sales-bubble">
+                    137 Sales
+                </div>
+            </div>
+            <div class="employee-card">
+                <div class="employee-details">
+                    <img class="employee-image" src="./tom_cruise.png" alt="Tom Cruise Image">
+                    <div class="employee-info">
+                        <p><strong>Tom Cruise</strong></p>
+                        <p>3 June 2020</p>
+                    </div>
+                </div>
+                <div class="sales-bubble">
+                    100 Sales
+                </div>
+            </div>
+            <div class="employee-card">
+                <div class="employee-details">
+                    <img class="employee-image" src="./pear_thusi.png" alt="Pearl Thusi Image">
+                    <div class="employee-info">
+                        <p><strong>Pearl Thusi</strong></p>
+                        <p>5 May 2021</p>
+                    </div>
+                </div>
+                <div class="sales-bubble">
+                    95 Sales
+                </div>
+            </div>
+            <button class="view-more-button">View More</button>
+        </div>
+    </div>
+    <div class="card" style="margin-left: 350px;">
+        <canvas id="acoTacoChart"></canvas>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([51.505, -0.09], 13);
+
+        // Add the OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Add a marker at a specific location
+        var marker = L.marker([51.5, -0.09]).addTo(map);
+        marker.bindPopup("Hello! This is a marker.").openPopup();
+    </script>
+
+    <script>
+        // Get the canvas elements
+        const lineCanvas = document.getElementById('lineChart');
+        const pieCanvas = document.getElementById('pieChart');
+
+        // Create the line chart
+        new Chart(lineCanvas.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [5000, 6000, 4000, 8000, 7000, 9000],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Create the pie chart
+        new Chart(pieCanvas.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Category 1', 'Category 2', 'Category 3'],
+                datasets: [{
+                    data: [30, 40, 30],
+                    backgroundColor: ['red', 'green', 'blue']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    <script>
+        // Assuming you have included Chart.js library
+
+        // Get the canvas element
+        const canvas = document.getElementById('acoTacoChart');
+
+        // Create the chart
+        const chart = new Chart(canvas, {
+            type: 'bar',
+            data: {
+                labels: ['ACOs', 'Tacos'],
+                datasets: [{
+                    label: 'Number of ACOs and Tacos',
+                    data: [10, 15], // Replace with your actual data
+                    backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'], // Customize colors as needed
+                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'], // Customize colors as needed
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

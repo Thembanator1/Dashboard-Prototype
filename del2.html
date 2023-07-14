@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line Chart test</title>
+    <link rel="stylesheet" href="del2.css">
+    
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="top-nav">
+        <img class="logo" src="./pp_logo.png"  style ="margin-left: 200px;" alt = "Logo">
+
+        <h2 style="margin-left:390px;">Dashboard</h2>
+        <!-- <ul class="nav-links">
+            <div class="menu">
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="Supplier_sales.html">Sales Analysis</a></li>
+            </div>
+        </ul> -->
+    </div>
+
+    <div class="sidebar">
+        <img width="18" height="16" style="float: right;" src="https://img.icons8.com/ios-filled/16/back.png" alt="back"/>
+        <ul>
+          <li>
+            <img src="home.svg" alt="Home Icon">
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <img width="14" height="14" src="https://img.icons8.com/sf-regular-filled/14/crowd.png" alt="crowd"/>
+            <a href="#">People</a>
+          </li>
+          <li>
+            <img width="16" height="16" src="https://img.icons8.com/external-flatart-icons-solid-flatarticons/64/external-account-taxes-flatart-icons-solid-flatarticons.png" alt="external-account-taxes-flatart-icons-solid-flatarticons"/>
+            <a href="supplier_homepage.html">Bussiness Data</a>
+          </li>
+          <li>
+            <img width="17" height="17" src="https://img.icons8.com/ios-filled/50/statistics-report.png" alt="statistics-report"/>
+            <a href="report.html">Financial Report</a>
+          </li>
+          
+          <li>
+            <img width="14" height="14" src="https://img.icons8.com/ios-filled/14/settings.png" alt="settings"/>
+            <a href="#">Settings</a>
+          </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class = "left-Side-container">
+            <div class="card">
+                <div class="line-chart">
+                    <canvas id="lineChart"></canvas>
+                </div>
+                <div class="pie-chart">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+            <div class="card" style="margin-left: 10px;">
+                <canvas id="acoTacoChart"></canvas>
+            </div>
+        </div><!-- END OF left-Side-container (column flex) -->
+        <div class="best-sellers">
+            <h3>Weekly Best Employees</h3>
+            <div class="employee-card">
+                <div class="employee-details">
+                    <img class="employee-image" src="./jay_cutler.png" alt="Jay Cutler Image">
+                    <div class="employee-info">
+                        <p><strong>Jay Cutler</strong></p>
+                        <p>9 July 2023</p>
+                    </div>
+                </div>
+                <div class="sales-bubble">
+                    137 Sales
+                </div>
+            </div>
+            <div class="employee-card">
+                <div class="employee-details">
+                    <img class="employee-image" src="./tom_cruise.png" alt="Tom Cruise Image">
+                    <div class="employee-info">
+                        <p><strong>Tom Cruise</strong></p>
+                        <p>3 June 2020</p>
+                    </div>
+                </div>
+                <div class="sales-bubble">
+                    100 Sales
+                </div>
+            </div>
+            <div class="employee-card">
+                <div class="employee-details">
+                    <img class="employee-image" src="./pear_thusi.png" alt="Pearl Thusi Image">
+                    <div class="employee-info">
+                        <p><strong>Pearl Thusi</strong></p>
+                        <p>5 May 2021</p>
+                    </div>
+                </div>
+                <div class="sales-bubble">
+                    95 Sales
+                </div>
+            </div>
+            <button class="view-more-button">View More</button>
+
+            <div class="map-card">
+                <h3 style = "text-align: center;">Store Location(s)</h3>
+                <div id="map"></div>
+            </div>
+            
+            <script>
+            function initMap() {
+                var uluru = {lat: -27.755880, lng: 29.933849};
+                var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: uluru
+                });
+                var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+                });
+            }
+            </script>
+            <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHqYdSSiDieI9jM8urZcwhGVMi7zgEBP4&callback=initMap">
+            </script>
+        </div>
+        
+    </div>
+    
+      
+
+    <script>
+        // Get the canvas elements
+        const lineCanvas = document.getElementById('lineChart');
+        const pieCanvas = document.getElementById('pieChart');
+
+        // Create the line chart
+        new Chart(lineCanvas.getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [5000, 6000, 4000, 8000, 7000, 9000],
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // Create the pie chart
+        new Chart(pieCanvas.getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Category 1', 'Category 2', 'Category 3'],
+                datasets: [{
+                    data: [30, 40, 30],
+                    backgroundColor: ['red', 'green', 'blue']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    <script>
+        // Assuming you have included Chart.js library
+
+// Get the canvas element
+const canvas = document.getElementById('acoTacoChart');
+
+// Create the chart
+const chart = new Chart(canvas, {
+  type: 'bar',
+  data: {
+    labels: ['ACOs', 'Tacos'],
+    datasets: [{
+      label: 'Number of ACOs and Tacos',
+      data: [10, 15], // Replace with your actual data
+      backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'], // Customize colors as needed
+      borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'], // Customize colors as needed
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+    </script>
+</body>
+</html>

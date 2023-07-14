@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Line Chart test</title>
+    <link rel="stylesheet" href="del.css">
+    <style>
+        .card {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="card">
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h2>$15,000</h2>
+                <p>This Month</p>
+            </div>
+            <div>
+                <h2>$10,000</h2>
+                <p>Last Month</p>
+            </div>
+        </div>
+        <div>
+            <canvas id="lineChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Get the canvas element
+        const canvas = document.getElementById('lineChart');
+        const ctx = canvas.getContext('2d');
+    
+        // Define the data for the line chart
+        const data = {
+            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+            datasets: [{
+                label: 'Sales',
+                data: [5000, 6000, 4000, 8000, 7000, 9000],
+                borderColor: 'blue',
+                fill: false
+            }]
+        };
+    
+        // Create the line chart
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+    
+</body>
+</html>

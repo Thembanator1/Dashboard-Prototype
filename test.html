@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<link rel="stylesheet" href="test.css">
+<body>
+    <div class="top-nav">
+        <img class="logo" src="./logo.png"  style ="margin-left: 200px;" alt = "Logo">
+
+        <h2 style="margin-left:390px;">Some Text Here</h2>
+    </div>
+  
+    <div class="container">
+        
+        <div id="mychart"></div>
+    </div>
+    
+
+    <script type="module" src="./linechart.js"></script>
+    <script type="module">
+        import { LineChart } from './linechart.js'
+
+        let array = [8, 3, 7, 6, 9, 2];
+        let linechart_1 = new LineChart("mychart", 400, 200, array);
+        linechart_1.params['segment'] = 'line';
+        linechart_1.params['stroke'] = '#E82D2D';
+        linechart_1.params['color'] = '#F24747';
+        linechart_1.params['stroke-linecap'] = 'square';
+        linechart_1.update();
+    </script>  
+    
+
+    <!-- const xValues = [50,60,70,80,90,100,110,120,130,140,150];
+    const yValues = [7,8,8,9,9,9,10,11,14,14,15]; -->
+    
+</body>
+</html>
